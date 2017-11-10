@@ -25,9 +25,7 @@ for i in number:
 #print (output_list)
 #print("--------------------------------------------------------")
 
-# create a copy of the main list and shuffle it
-temp_list = output_list[:]
-random.shuffle(temp_list)                
+            
 
 #print (temp_list)
 #print("--------------------------------------------------------")
@@ -42,10 +40,14 @@ def allSame(x):
    return x[1:] == x[:-1]
 
 def dealHand():
+    # create a copy of the main list and shuffle it
+    temp_list = output_list[:]
+    random.shuffle(temp_list)    
+    
     #Grab the first 12 cards out of the shuffled list for this hand
-    this_hand = temp_list[0:12]
-    print (this_hand)
-    print("--------------------------------------------------------")
+    this_hand = temp_list[0:6]
+#    print (this_hand)
+#    print("--------------------------------------------------------")
 
     sets_in_hand = 0
     #Look for a match
@@ -65,9 +67,20 @@ def dealHand():
                     if allSame(temp4) == True or allUnique(temp4) == True:
 #                        print("SET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                         sets_in_hand = sets_in_hand + 1
-    print("Total sets in this hand = ",sets_in_hand)
+#    print("Total sets in this hand = ",sets_in_hand)
+    if sets_in_hand > 0:
+        return True
+    else:
+        return False
     
-dealHand()
+hands = 10000
+hands_with_a_set = 0
+for i in range (0,hands):
+    temp = dealHand()
+    if temp == True:
+        hands_with_a_set = hands_with_a_set + 1
+        
+print("Number of hands out of",hands,"that contain a set is =",hands_with_a_set)
 
 
     
