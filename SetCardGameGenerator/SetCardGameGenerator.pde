@@ -30,46 +30,111 @@ int tempHeight = (numberCardsHigh * cardHeight) + ((numberCardsHigh + 1) * cardB
 
 void setup() {
   size(560, 220);
-  print(tempWidth);
-  print("  ");
-  print(tempHeight);
+  //println(tempWidth);
+  //println(tempHeight);
   strokeCap(ROUND);
   rectMode(CENTER);
-}
-
-void draw() {
+  
   background(0);
   
   moveToZero();
+  pushMatrix();
   moveToCardCenter(1);
-  drawCardBackground(); //<>//
-  
-  moveToCardPos(1); //<>//
+  drawCardBackground();
+  popMatrix();
+ 
+  pushMatrix();
+  moveToCardPos(1);
+  printPosition("card position 1");
   drawSolidSquare(RED);
+  printPosition("card position 1, solid red drawn");
+  
   moveToCardPos(2);
-  drawHollowSquare(GREEN);  
+  printPosition("card position 2");  
+  drawHollowSquare(GREEN);
+  printPosition("card position 2, hollow green drawn");
   moveToCardPos(3);
+  printPosition("card position 3");
   drawSemiSquare(PURPLE);
+  printPosition("card position 3, semi purpledrawn");
+  popMatrix();
+  
   
   moveToZero();
+  pushMatrix();  
   moveToCardCenter(2);
   drawCardBackground();
+  popMatrix();
   
+  pushMatrix();
   moveToCardPos(4);
   drawSolidCircle(RED);
   moveToCardPos(5);
-  drawHollowCircle(GREEN);    
+  drawHollowCircle(GREEN);
+  popMatrix();
   
   moveToZero();
+  pushMatrix();
   moveToCardCenter(3);
   drawCardBackground();
+  popMatrix();
   
+  pushMatrix();
   moveToCardPos(6);
-  drawSolidDiamond(RED);  
+  drawSolidDiamond(RED);
+  popMatrix();  
 }
 
+void draw() {
+  //background(0);
+  
+  //moveToZero();
+  //printPosition();
+  //moveToCardCenter(1);
+  //printPosition();
+  
+  //drawCardBackground(); //<>//
+  
+  //moveToCardPos(1); //<>//
+  //moveToCardCenter(1);
+  
+  //printPosition();
+  
+  //drawSolidSquare(RED);
+  //printPosition();
+  
+  
+  //moveToCardPos(2);
+  //drawHollowSquare(GREEN);  
+  //moveToCardPos(3);
+  //drawSemiSquare(PURPLE);
+  
+  //moveToZero();
+  //moveToCardCenter(2);
+  //drawCardBackground();
+  
+  //moveToCardPos(4);
+  //drawSolidCircle(RED);
+  //moveToCardPos(5);
+  //drawHollowCircle(GREEN);    
+  
+  //moveToZero();
+  //moveToCardCenter(3);
+  //drawCardBackground();
+  
+  //moveToCardPos(6);
+  //drawSolidDiamond(RED);  
+}
+//
 
 //-------------------------------------------------------------------------------------------------------
+void printPosition(String input)  {  
+  println(input);
+  println(currentX);
+  println(currentY);
+  println();
+}
+
 void moveToCardCenter(int i)  {
   if (i < 4)  {
     currentX = (int)(i*cardBorder+(i - 1/2.0)*cardWidth);
@@ -90,22 +155,36 @@ void moveToZero()  {
 }
 
 void moveToCardPos(int i)  {
+  int deltaX = 0;
+  int deltaY = 0;
+  
   if (i==1)  {
-    currentX = currentX - gridSize;
+    deltaX = -gridSize;
+    deltaY = 0;
   }
-  if (i==2 || i==6) {
-    currentX = currentX;
+  if (i==2) {
+    deltaX = 0;
+    deltaY = 0;
   }
   if (i==3)  {
-    currentX = currentX + gridSize;
+    deltaX = gridSize;
+    deltaY = 0;
   }
   if (i==4)  {
-    currentX = (int)(currentX - gridSize/2.0);
+    deltaX = (int)(-gridSize/2.0);
+    deltaY = gridSize;
   }
   if (i==5)  {
-    currentX = (int)(currentX + gridSize/2.0);
-  }    
-  currentY = currentY;
+    deltaX = (int)(+gridSize/2.0);
+    deltaY = 0;
+  }
+  if (i==6)  {
+    deltaX = 0;
+    deltaY = gridSize;
+  }  
+  
+  currentX = currentX + deltaX;
+  currentY = currentY + deltaY;
   translate(currentX,currentY);
 }
 
