@@ -67,11 +67,22 @@ void draw() {
   translate(gridSize*3,0);
   drawCardBackground();
   translate(-gridSize*1,0);
+  
   drawSolidCircle(RED);
   translate(gridSize,0);
   drawHollowCircle(GREEN);  
   translate(gridSize,0);
-  drawSemiCircle(PURPLE);      
+  drawSemiCircle(PURPLE);     
+  
+  translate(gridSize*3,0);
+  drawCardBackground();
+  translate(-gridSize*1,0);
+  
+  drawSolidDiamond(RED);
+  translate(gridSize,0);
+  drawHollowDiamond(GREEN);  
+  translate(gridSize,0);
+  drawSemiDiamond(PURPLE);     
 }
 
 void drawCardBackground()  {
@@ -133,6 +144,36 @@ void drawSemiCircle(int colr)  {
   fill(colr,transparentFactor);
   pushMatrix();
   ellipse(0, 0, shapeSize, shapeSize);
+  popMatrix();  
+}
+
+void drawSolidDiamond(int colr)  {
+  noStroke();
+  fill(colr);
+  pushMatrix();
+  rotate(PI/4.0);
+  rect(0, 0, rotShapeSize, rotShapeSize);
+  popMatrix();  
+}
+
+void drawHollowDiamond(int colr)  {
+  strokeWeight(strkWeight);
+  stroke(colr);
+  fill(255);
+  pushMatrix();
+  rotate(PI/4.0);
+  rect(0, 0, rotShapeSize, rotShapeSize);
+  popMatrix();  
+}
+
+void drawSemiDiamond(int colr)  {
+  //strokeWeight(strkWeight);
+  //stroke(colr,50);
+  noStroke();
+  fill(colr,transparentFactor);
+  pushMatrix();
+  rotate(PI/4.0);
+  rect(0, 0, rotShapeSize, rotShapeSize);
   popMatrix();  
 }
 
