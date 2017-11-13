@@ -1,5 +1,20 @@
+/*
+card legend:
+number = ["1","2","3"] # number of shapes
+shape = ["S","D","C"]  # Square, Diamond, Circle
+colors = ["R","G","P"] # Red, Green, Purple
+fill = ["S","E","T"]   # Solid, Empty, Transparent
+*/
+
 int shapeSize = 30;
 int cardWidth = 160;
+int cardBorder = 20;
+int numberCardsWide = 3;
+int numberCardsHigh = 2;
+
+int currentX = 0;
+int currentY = 0;
+
 int cardHeight = (int)(cardWidth*12.0/24);
 int gridSize = 50;
 int rotShapeSize = (int) (shapeSize/sqrt(2));
@@ -10,79 +25,88 @@ color RED = color(220,20,60);
 color GREEN = color(0, 255, 0);
 color PURPLE = color(138,43,226);
 
+int tempWidth = (numberCardsWide * cardWidth) + ((numberCardsWide + 1) * cardBorder);
+int tempHeight = (numberCardsHigh * cardHeight) + ((numberCardsHigh + 1) * cardBorder);
+
 void setup() {
-  size(860, 360);
+  size(560, 220);
+  print(tempWidth);
+  print("  ");
+  print(tempHeight);
   strokeCap(ROUND);
   rectMode(CENTER);
 }
 
-//for (int i = 0; i < 4; i++)  {
-//  pushMatrix();
-//  translate (i*4*gridSize + gridSize/2,50);
-//  fill(255,255,255);
-//  noStroke();
-//  rect(gridSize*2,100,160,90,5);
-//  strokeWeight(strkWeight);
-//  stroke(PURPLE);
-//  //fill(0,0,255);
-//  fill(255);
-//  pushMatrix();
-//  translate(gridSize,100);
-//  ellipse(0, 0, shapeSize, shapeSize);
-//  popMatrix();
-  
-//  strokeWeight(strkWeight);
-//  stroke(GREEN);
-//  fill(GREEN);
-//  pushMatrix();
-//  translate(gridSize*2,100);
-//  rect(0, 0, shapeSize, shapeSize);
-//  popMatrix();
-  
-//  strokeWeight(strkWeight);
-//  stroke(RED);
-//  fill(RED);
-//  pushMatrix();
-//  translate(gridSize*3, 100);
-//  rotate(PI/4.0);
-//  rect(0, 0, rotShapeSize, rotShapeSize);
-//  popMatrix();
-//  popMatrix();
-//}
-
 void draw() {
   background(0);
   
-  translate(gridSize*2,100);
-  drawCardBackground();
-  translate(-gridSize*2,0);
+  moveToZero();
+  moveToCardCenter(1);
+  drawCardBackground(); //<>//
   
-  translate(gridSize,0);
+  moveToCardPos(1); //<>//
   drawSolidSquare(RED);
-  translate(gridSize,0);
+  moveToCardPos(2);
   drawHollowSquare(GREEN);  
-  translate(gridSize,0);
-  drawSemiSquare(PURPLE);   
+  moveToCardPos(3);
+  drawSemiSquare(PURPLE);
   
-  translate(gridSize*3,0);
+  moveToZero();
+  moveToCardCenter(2);
   drawCardBackground();
-  translate(-gridSize*1,0);
   
+  moveToCardPos(4);
   drawSolidCircle(RED);
-  translate(gridSize,0);
-  drawHollowCircle(GREEN);  
-  translate(gridSize,0);
-  drawSemiCircle(PURPLE);     
+  moveToCardPos(5);
+  drawHollowCircle(GREEN);    
   
-  translate(gridSize*3,0);
+  moveToZero();
+  moveToCardCenter(3);
   drawCardBackground();
-  translate(-gridSize*1,0);
   
-  drawSolidDiamond(RED);
-  translate(gridSize,0);
-  drawHollowDiamond(GREEN);  
-  translate(gridSize,0);
-  drawSemiDiamond(PURPLE);     
+  moveToCardPos(6);
+  drawSolidDiamond(RED);  
+}
+
+
+//-------------------------------------------------------------------------------------------------------
+void moveToCardCenter(int i)  {
+  if (i < 4)  {
+    currentX = (int)(i*cardBorder+(i - 1/2.0)*cardWidth);
+    currentY = (int)(cardBorder+cardHeight/2.0);
+    translate(currentX,currentY);
+  }
+  else  {
+    currentX = (int)((i-3)*cardBorder+((i-3) - 1/2.0)*cardWidth);
+    currentY = (int)(2*cardBorder+cardHeight*3/2.0);
+    translate(currentX,currentY);
+  }
+}
+
+void moveToZero()  {
+  translate(-currentX,-currentY);
+  currentX = 0;
+  currentY = 0;
+}
+
+void moveToCardPos(int i)  {
+  if (i==1)  {
+    currentX = currentX - gridSize;
+  }
+  if (i==2 || i==6) {
+    currentX = currentX;
+  }
+  if (i==3)  {
+    currentX = currentX + gridSize;
+  }
+  if (i==4)  {
+    currentX = (int)(currentX - gridSize/2.0);
+  }
+  if (i==5)  {
+    currentX = (int)(currentX + gridSize/2.0);
+  }    
+  currentY = currentY;
+  translate(currentX,currentY);
 }
 
 void drawCardBackground()  {
