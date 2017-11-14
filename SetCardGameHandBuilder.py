@@ -6,6 +6,7 @@ Created on Fri Nov 10 08:20:33 2017
 """
 
 import random
+import time
 from itertools import combinations
 
 number = ["1","2","3"] # number of shapes
@@ -77,15 +78,20 @@ def dealHand():
         return False
     
 def handToString(input_hand,sets_in_hand):
+    f = open('OUTPUT.txt','a')  
+    
     output_string = ""
     i = 1
     for each in input_hand:
         output_string = output_string + str(i) + "," + each[0] + "," + each[1] + "," + each[2] + "," + each[3] + "/"
         i = i + 1
     output_string  = output_string + str(sets_in_hand)
-    print (output_string)
+#    print (output_string)
+    f.write('\n'+output_string)
+    f.close
     
-hands = 10
+t = time.time()
+hands = 10000
 hands_with_a_set = 0
 for i in range (0,hands):
     temp = dealHand()
@@ -93,8 +99,10 @@ for i in range (0,hands):
     if temp == True:
         hands_with_a_set = hands_with_a_set + 1
               
+elapsed_time = time.time() - t
 print("")
 print("Number of hands out of",hands,"that contain a set is =",hands_with_a_set)
+print("time to complete =",elapsed_time,"seconds")
 
 
     
