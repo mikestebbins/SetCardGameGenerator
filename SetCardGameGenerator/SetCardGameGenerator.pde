@@ -6,7 +6,7 @@ colors = ["R","G","P"] # Red, Green, Purple
 fill = ["S","E","T"]   # Solid, Empty, Transparent
 */
 
-int shapeSize = 30;
+int shapeSize = 33;
 int cardWidth = 160;
 int cardBorder = 20;
 int numberCardsWide = 3;
@@ -15,9 +15,9 @@ int numberCardsHigh = 2;
 int currentX = 0;
 int currentY = 0;
 
-int cardHeight = (int)(cardWidth*12.0/24);
+int cardHeight = (int)(cardWidth*1.0/2);
 int gridSize = 50;
-int rotShapeSize = (int) (shapeSize/sqrt(2));
+int rotShapeSize = (int) (1.3*shapeSize/sqrt(2));
 int strkWeight = 5;
 int transparentFactor = 90;
 
@@ -37,95 +37,62 @@ void setup() {
   
   background(0);
   
-  moveToZero();
   pushMatrix();
   moveToCardCenter(1);
   drawCardBackground();
-  popMatrix();
  
   pushMatrix();
-  moveToCardPos(1);
-  printPosition("card position 1");
+  moveToSymPos(1);
   drawSolidSquare(RED);
-  printPosition("card position 1, solid red drawn");
-  
-  moveToCardPos(2);
-  printPosition("card position 2");  
+  moveToSymPos(2);
   drawHollowSquare(GREEN);
-  printPosition("card position 2, hollow green drawn");
-  moveToCardPos(3);
-  printPosition("card position 3");
+  moveToSymPos(3);
   drawSemiSquare(PURPLE);
-  printPosition("card position 3, semi purpledrawn");
   popMatrix();
+  popMatrix();
+  printPosition("card position 3, semi purpledrawn, after 2 pops"); 
   
-  
-  moveToZero();
   pushMatrix();  
   moveToCardCenter(2);
   drawCardBackground();
-  popMatrix();
   
   pushMatrix();
-  moveToCardPos(4);
+  moveToSymPos(4);
   drawSolidCircle(RED);
-  moveToCardPos(5);
+  moveToSymPos(5);
   drawHollowCircle(GREEN);
   popMatrix();
-  
-  moveToZero();
+  popMatrix();
+ 
   pushMatrix();
   moveToCardCenter(3);
   drawCardBackground();
+  
+  pushMatrix();
+  moveToSymPos(6);
+  drawSolidDiamond(RED);
+  popMatrix();  
   popMatrix();
   
   pushMatrix();
-  moveToCardPos(6);
+  moveToCardCenter(4);
+  drawCardBackground();
+ 
+  pushMatrix();
+  moveToSymPos(1);
   drawSolidDiamond(RED);
-  popMatrix();  
+  moveToSymPos(2);
+  drawHollowDiamond(GREEN);
+  moveToSymPos(3);
+  drawSemiDiamond(PURPLE);
+  popMatrix();
+  popMatrix();
+  printPosition("after 4th card"); 
+  
 }
 
-void draw() {
-  //background(0);
-  
-  //moveToZero();
-  //printPosition();
-  //moveToCardCenter(1);
-  //printPosition();
-  
-  //drawCardBackground(); //<>//
-  
-  //moveToCardPos(1); //<>//
-  //moveToCardCenter(1);
-  
-  //printPosition();
-  
-  //drawSolidSquare(RED);
-  //printPosition();
-  
-  
-  //moveToCardPos(2);
-  //drawHollowSquare(GREEN);  
-  //moveToCardPos(3);
-  //drawSemiSquare(PURPLE);
-  
-  //moveToZero();
-  //moveToCardCenter(2);
-  //drawCardBackground();
-  
-  //moveToCardPos(4);
-  //drawSolidCircle(RED);
-  //moveToCardPos(5);
-  //drawHollowCircle(GREEN);    
-  
-  //moveToZero();
-  //moveToCardCenter(3);
-  //drawCardBackground();
-  
-  //moveToCardPos(6);
-  //drawSolidDiamond(RED);  
+void draw() { //<>// //<>//
 }
-//
 
 //-------------------------------------------------------------------------------------------------------
 void printPosition(String input)  {  
@@ -154,7 +121,11 @@ void moveToZero()  {
   currentY = 0;
 }
 
-void moveToCardPos(int i)  {
+void moveToSymPos(int i)  {
+  //   if 3 symbols on card: 1 / 2 / 3
+  //   if 2 symbols on card:   4 / 5
+  //   if 1 symbol on card:      6
+    
   int deltaX = 0;
   int deltaY = 0;
   
@@ -163,7 +134,7 @@ void moveToCardPos(int i)  {
     deltaY = 0;
   }
   if (i==2) {
-    deltaX = 0;
+    deltaX = gridSize;
     deltaY = 0;
   }
   if (i==3)  {
@@ -172,20 +143,20 @@ void moveToCardPos(int i)  {
   }
   if (i==4)  {
     deltaX = (int)(-gridSize/2.0);
-    deltaY = gridSize;
+    deltaY = 0;
   }
   if (i==5)  {
-    deltaX = (int)(+gridSize/2.0);
+    deltaX = gridSize;
     deltaY = 0;
   }
   if (i==6)  {
     deltaX = 0;
-    deltaY = gridSize;
+    deltaY = 0;
   }  
   
-  currentX = currentX + deltaX;
-  currentY = currentY + deltaY;
-  translate(currentX,currentY);
+  //currentX = currentX + deltaX;
+  //currentY = currentY + deltaY;
+  translate(deltaX,deltaY);
 }
 
 void drawCardBackground()  {
