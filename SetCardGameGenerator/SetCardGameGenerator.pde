@@ -17,7 +17,7 @@ int currentY = 0;
 
 int cardHeight = (int)(cardWidth*1.0/2);
 int gridSize = 50;
-int rotShapeSize = (int) (1.3*shapeSize/sqrt(2));
+int rotShapeSize = (int) (1.2*shapeSize/sqrt(2));
 int strkWeight = 5;
 int transparentFactor = 90;
 
@@ -34,104 +34,23 @@ void setup() {
   //println(tempHeight);
   strokeCap(ROUND);
   rectMode(CENTER);
-  
   background(0);
   
-  pushMatrix();
-  moveToCardCenter(1);
-  drawCardBackground();
- 
-  pushMatrix();
-  moveToSymPos(1);
-  drawSolidSquare(RED);
-  moveToSymPos(2);
-  drawHollowSquare(GREEN);
-  moveToSymPos(3);
-  drawSemiSquare(PURPLE);
-  popMatrix();
-  popMatrix();
-  printPosition("card position 3, semi purpledrawn, after 2 pops"); 
+  buildCard("1,1,S,R,S");
+  buildCard("2,2,D,G,E");
+  buildCard("3,3,C,P,T");
+  buildCard("4,1,S,P,T");
+  buildCard("5,2,D,R,E");
+  buildCard("6,3,C,G,S");
   
-  pushMatrix();  
-  moveToCardCenter(2);
-  drawCardBackground();
-  
-  pushMatrix();
-  moveToSymPos(4);
-  drawSolidCircle(RED);
-  moveToSymPos(5);
-  drawHollowCircle(GREEN);
-  popMatrix();
-  popMatrix();
- 
-  pushMatrix();
-  moveToCardCenter(3);
-  drawCardBackground();
-  
-  pushMatrix();
-  moveToSymPos(6);
-  drawSolidDiamond(RED);
-  popMatrix();  
-  popMatrix();
-  
-  //pushMatrix();
-  //moveToCardCenter(4);
-  //drawCardBackground();
- 
-  //pushMatrix();
-  //moveToSymPos(1);
-  //drawSolidDiamond(RED);
-  //moveToSymPos(2);
-  //drawHollowDiamond(GREEN);
-  //moveToSymPos(3);
-  //drawSemiDiamond(PURPLE);
-  //popMatrix();
-  //popMatrix();
-  //printPosition("after 4th card"); 
-  
-  pushMatrix();
-  moveToCardCenter(5);
-  drawCardBackground();
- 
-  pushMatrix();
-  moveToSymPos(1);
-  setFillColor("S",RED);
-  drawSquare();
-
-  moveToSymPos(2);
-  setFillColor("E",GREEN);
-  drawCircle();
-
-  moveToSymPos(3);
-  setFillColor("T",PURPLE);
-  drawDiamond();
-  
-  popMatrix();
-  popMatrix(); 
-  
-  buildCard("6,3,C,G,E");
-  //buildCardTest();
+  // Saves each frame as line-000001.png, line-000002.png, etc.
+  saveFrame("line-######.png");
 }
 
 void draw() { //<>// //<>//
 }
 
 //-------------------------------------------------------------------------------------------------------
-
-//---------------------------------------------------------
-void buildCardTest()  {
-  pushMatrix();
-  moveToCardCenter(4);
-  drawCardBackground();
-  pushMatrix();
-  setFillColor("S",RED);
-  moveToSymPos(6);
-  drawDiamond();   
-  popMatrix();
-  popMatrix();
-}  
-//-----------------------------------------------------------
-
 void buildCard(String cardData)  {
   String[] list = split(cardData, ',');
   // 0: card number
@@ -337,106 +256,3 @@ void drawDiamond()  {
   rect(0, 0, rotShapeSize, rotShapeSize);
   popMatrix();  
 }
-
-// DEPRECATED-------------------------------------------------------
-
-void drawSolidSquare(int colr)  {
-  noStroke();
-  fill(colr);
-  pushMatrix();
-  rect(0, 0, shapeSize, shapeSize);
-  popMatrix();  
-}
-
-void drawHollowSquare(int colr)  {
-  strokeWeight(strkWeight);
-  stroke(colr);
-  fill(255);
-  pushMatrix();
-  rect(0, 0, shapeSize, shapeSize);
-  popMatrix();  
-}
-
-void drawSemiSquare(int colr)  {
-  //strokeWeight(strkWeight);
-  //stroke(colr,50);
-  noStroke();
-  fill(colr,transparentFactor);
-  pushMatrix();
-  rect(0, 0, shapeSize, shapeSize);
-  popMatrix();  
-}
-
-void drawSolidCircle(int colr)  {
-  noStroke();
-  fill(colr);
-  pushMatrix();
-  ellipse(0, 0, shapeSize, shapeSize);
-  popMatrix();  
-}
-
-void drawHollowCircle(int colr)  {
-  strokeWeight(strkWeight);
-  stroke(colr);
-  fill(255);
-  pushMatrix();
-  ellipse(0, 0, shapeSize, shapeSize);
-  popMatrix();  
-}
-
-void drawSemiCircle(int colr)  {
-  //strokeWeight(strkWeight);
-  //stroke(colr,50);
-  noStroke();
-  fill(colr,transparentFactor);
-  pushMatrix();
-  ellipse(0, 0, shapeSize, shapeSize);
-  popMatrix();  
-}
-
-void drawSolidDiamond(int colr)  {
-  noStroke();
-  fill(colr);
-  pushMatrix();
-  rotate(PI/4.0);
-  rect(0, 0, rotShapeSize, rotShapeSize);
-  popMatrix();  
-}
-
-void drawHollowDiamond(int colr)  {
-  strokeWeight(strkWeight);
-  stroke(colr);
-  fill(255);
-  pushMatrix();
-  rotate(PI/4.0);
-  rect(0, 0, rotShapeSize, rotShapeSize);
-  popMatrix();  
-}
-
-void drawSemiDiamond(int colr)  {
-  //strokeWeight(strkWeight);
-  //stroke(colr,50);
-  noStroke();
-  fill(colr,transparentFactor);
-  pushMatrix();
-  rotate(PI/4.0);
-  rect(0, 0, rotShapeSize, rotShapeSize);
-  popMatrix();  
-}
-
-//GIST
-/*
-read in file of hand
-for each card (1-6):
-  pushmatrix
-  translate to the centroid of that card
-  draw card rectangle
-  based on number of shapes, either:
-    stay in the cetner and draw one shape
-    shift left and draw first of two then shift right and draw second of two
-    draw middle, then shift left and draw first of three, then shift right and draw third of three
-
-build functions to call to draw each shape with color / fill defined
-  
-
-*/
