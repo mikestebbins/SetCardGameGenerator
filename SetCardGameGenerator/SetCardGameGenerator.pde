@@ -1,9 +1,9 @@
 /*
-card legend:
-number = ["1","2","3"] # number of shapes
-shape = ["S","D","C"]  # Square, Diamond, Circle
-colors = ["R","G","P"] # Red, Green, Purple
-fill = ["S","E","T"]   # Solid, Empty, Transparent
+Mike Stebbins
+last updated: 11-14-2017
+
+Purpose is to read in a text file of inidividual hands from the card game SET,
+build a picture of that hand, and then export an image file of that hand.
 */
 
 int shapeSize = 14;
@@ -28,40 +28,66 @@ color PURPLE = color(138,43,226);
 int tempWidth = (numberCardsWide * cardWidth) + ((numberCardsWide + 1) * cardBorder);
 int tempHeight = (numberCardsHigh * cardHeight) + ((numberCardsHigh + 1) * cardBorder);
 
+String[] input;
+int i = -1;
+int numberOfHands = 0;
+
+// ----------------------------------------------------------------------------------------------------------
+// SETUP
+// ----------------------------------------------------------------------------------------------------------
+
 void setup() {
   size(196, 72);
-  println(tempWidth);
-  println(tempHeight);
+  //println(tempWidth);
+  //println(tempHeight);
   strokeCap(ROUND);
   rectMode(CENTER);
   background(0);
   frameRate(30);
-  
-  buildCard("1,1,S,R,S");
-  buildCard("2,3,D,G,E");
-  buildCard("3,3,D,P,T");
-  buildCard("4,1,S,P,T");
-  buildCard("5,2,D,R,E");
-  buildCard("6,3,C,G,S");
-  
-  // Saves each frame as line-000001.png, line-000002.png, etc.
-  saveFrame("line-######.PNG");
+  input = loadStrings("inputfile.txt");
+  numberOfHands = input.length;
+
+  //buildCard("1,1,S,R,S");
+  //buildCard("2,3,D,G,E");
+  //buildCard("3,3,D,P,T");
+  //buildCard("4,1,S,P,T");
+  //buildCard("5,2,D,R,E");
+  //buildCard("6,3,C,G,S");
 }
 
+// ----------------------------------------------------------------------------------------------------------
+// DRAW
+// ----------------------------------------------------------------------------------------------------------
 void draw() {
-  buildCard("1,1,S,R,S");
-  buildCard("2,3,D,G,E");
-  buildCard("3,3,D,P,T");
-  buildCard("4,1,S,P,T");
-  buildCard("5,2,D,R,E");
-  buildCard("6,3,C,G,S");
+  //buildCard("1,1,S,R,S");
+  //buildCard("2,3,D,G,E");
+  //buildCard("3,3,D,P,T");
+  //buildCard("4,1,S,P,T");
+  //buildCard("5,2,D,R,E");
+  //buildCard("6,3,C,G,S");
   
+    if (i < (numberOfHands-1))  {
+      i++;
+      }
+    else {
+      noLoop();
+      } 
+  
+    String tempHand = input[i];
+    String[] tempHandArray = split(tempHand,'/');
+    
+    for (int j = 0; j < tempHandArray.length-1; j++)  {
+        buildCard(tempHandArray[j]);
+    }
+    
   // Saves each frame as line-000001.png, line-000002.png, etc.
   saveFrame("line-######.PNG");
-  println(frameRate); //<>// //<>//
+  //println(frameRate); //<>// //<>//
 }
 
-//-------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------
+// FUNCTIONS
+// ----------------------------------------------------------------------------------------------------------
 void buildCard(String cardData)  {
   String[] list = split(cardData, ',');
   // 0: card number
@@ -69,6 +95,7 @@ void buildCard(String cardData)  {
   // 2: shape = ["S","D","C"]  # Square, Diamond, Circle
   // 3: colors = ["R","G","P"] # Red, Green, Purple
   // 4: fill = ["S","E","T"]   # Solid, Empty, Transparent
+  // 5: sets = ["0" - "9"]     # number of sets in this hand
   
   int temp0 = int(trim(list[0]));
   int temp1 = int(trim(list[1]));
