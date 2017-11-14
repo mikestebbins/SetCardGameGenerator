@@ -74,20 +74,20 @@ void setup() {
   popMatrix();  
   popMatrix();
   
-  pushMatrix();
-  moveToCardCenter(4);
-  drawCardBackground();
+  //pushMatrix();
+  //moveToCardCenter(4);
+  //drawCardBackground();
  
-  pushMatrix();
-  moveToSymPos(1);
-  drawSolidDiamond(RED);
-  moveToSymPos(2);
-  drawHollowDiamond(GREEN);
-  moveToSymPos(3);
-  drawSemiDiamond(PURPLE);
-  popMatrix();
-  popMatrix();
-  printPosition("after 4th card"); 
+  //pushMatrix();
+  //moveToSymPos(1);
+  //drawSolidDiamond(RED);
+  //moveToSymPos(2);
+  //drawHollowDiamond(GREEN);
+  //moveToSymPos(3);
+  //drawSemiDiamond(PURPLE);
+  //popMatrix();
+  //popMatrix();
+  //printPosition("after 4th card"); 
   
   pushMatrix();
   moveToCardCenter(5);
@@ -108,12 +108,130 @@ void setup() {
   
   popMatrix();
   popMatrix(); 
+  
+  buildCard("6,3,C,G,E");
+  //buildCardTest();
 }
 
 void draw() { //<>// //<>//
 }
 
 //-------------------------------------------------------------------------------------------------------
+
+//---------------------------------------------------------
+void buildCardTest()  {
+  pushMatrix();
+  moveToCardCenter(4);
+  drawCardBackground();
+  pushMatrix();
+  setFillColor("S",RED);
+  moveToSymPos(6);
+  drawDiamond();   
+  popMatrix();
+  popMatrix();
+}  
+//-----------------------------------------------------------
+
+void buildCard(String cardData)  {
+  String[] list = split(cardData, ',');
+  // 0: card number
+  // 1: number = ["1","2","3"] # number of shapes
+  // 2: shape = ["S","D","C"]  # Square, Diamond, Circle
+  // 3: colors = ["R","G","P"] # Red, Green, Purple
+  // 4: fill = ["S","E","T"]   # Solid, Empty, Transparent
+  
+  int temp0 = int(trim(list[0]));
+  int temp1 = int(trim(list[1]));
+ 
+  if (list[3].equals("R"))  {
+    setFillColor(trim(list[4]),RED);  
+  }
+  if (list[3].equals("G"))  {
+    setFillColor(trim(list[4]),GREEN);
+  }
+  if (list[3].equals("P"))  {
+    setFillColor(trim(list[4]),PURPLE);
+  }
+    
+  pushMatrix();
+  moveToCardCenter(temp0);
+  drawCardBackground();
+  pushMatrix();
+  
+  if (list[3].equals("R"))  {
+    setFillColor(list[4],RED);  
+  }
+  if (list[3].equals("G"))  {
+    setFillColor(list[4],GREEN);
+  }
+  if (list[3].equals("P"))  {
+    setFillColor(list[4],PURPLE);
+  }  
+   
+  if (temp1 == 3)  {
+    moveToSymPos(1);
+    if (list[2].equals("S"))  {
+      drawSquare();
+      moveToSymPos(2);
+      drawSquare();
+      moveToSymPos(3);
+      drawSquare();
+    }
+    if (list[2].equals("D"))  {
+      drawDiamond();
+      moveToSymPos(2);
+      drawDiamond();
+      moveToSymPos(3);
+      drawDiamond();
+    }
+    if (list[2].equals("C"))  {
+      drawCircle();
+      moveToSymPos(2);
+      drawCircle();
+      moveToSymPos(3);
+      drawCircle();
+    }
+    popMatrix();
+    popMatrix();
+  } 
+  
+  if (temp1 == 2)  {
+    moveToSymPos(4);
+    if (list[2].equals("S"))  {
+      drawSquare();
+      moveToSymPos(5);
+      drawSquare();
+    }
+    if (list[2].equals("D"))  {
+      drawDiamond();
+      moveToSymPos(5);
+      drawDiamond();
+    }
+    if (list[2].equals("C"))  {
+      drawCircle();
+      moveToSymPos(5);
+      drawCircle();
+    }
+    popMatrix();
+    popMatrix();
+  }
+
+  if (temp1 == 1)  {
+    moveToSymPos(6);
+    if (list[2].equals("S"))  {
+      drawSquare();
+    }
+    if (list[2].equals("D"))  {
+      drawDiamond();
+    }
+    if (list[2].equals("C"))  {
+      drawCircle();
+    }
+    popMatrix();
+    popMatrix();
+  }
+}  
+
 void printPosition(String input)  {  
   println(input);
   println(currentX);
@@ -172,9 +290,6 @@ void moveToSymPos(int i)  {
     deltaX = 0;
     deltaY = 0;
   }  
-  
-  //currentX = currentX + deltaX;
-  //currentY = currentY + deltaY;
   translate(deltaX,deltaY);
 }
 
@@ -186,19 +301,19 @@ void drawCardBackground()  {
   popMatrix();  
 }
 
-void setFillColor (String fill, int colr)  {
-  if (fill == "S")  {  // Solid fill
+void setFillColor (String fill, color colr)  {
+  if (fill.equals("S"))  {  // Solid fill
     noStroke();
     fill(colr);
   }
   
-  if (fill == "E")  {  // Empty fill
+  if (fill.equals("E"))  {  // Empty fill
     strokeWeight(strkWeight);
     stroke(colr);
     fill(255);
   }
   
-  if (fill == "T")  {  // Transparent, or "Semi" fill
+  if (fill.equals("T"))  {  // Transparent, or "Semi" fill
     noStroke();
     fill(colr,transparentFactor);
   }
