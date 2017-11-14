@@ -68,18 +68,32 @@ def dealHand():
 #                        print("SET!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                         sets_in_hand = sets_in_hand + 1
 #    print("Total sets in this hand = ",sets_in_hand)
+    
+    handToString(this_hand,sets_in_hand)
+    
     if sets_in_hand > 0:
         return True
     else:
         return False
     
-hands = 10000
+def handToString(input_hand,sets_in_hand):
+    output_string = ""
+    i = 1
+    for each in input_hand:
+        output_string = output_string + str(i) + "," + each[0] + "," + each[1] + "," + each[2] + "," + each[3] + "/"
+        i = i + 1
+    output_string  = output_string + str(sets_in_hand)
+    print (output_string)
+    
+hands = 10
 hands_with_a_set = 0
 for i in range (0,hands):
     temp = dealHand()
+    
     if temp == True:
         hands_with_a_set = hands_with_a_set + 1
-        
+              
+print("")
 print("Number of hands out of",hands,"that contain a set is =",hands_with_a_set)
 
 
