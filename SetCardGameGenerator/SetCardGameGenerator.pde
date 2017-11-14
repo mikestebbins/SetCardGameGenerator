@@ -6,9 +6,9 @@ colors = ["R","G","P"] # Red, Green, Purple
 fill = ["S","E","T"]   # Solid, Empty, Transparent
 */
 
-int shapeSize = 33;
-int cardWidth = 160;
-int cardBorder = 20;
+int shapeSize = 14;
+int cardWidth = 60;
+int cardBorder = 4;
 int numberCardsWide = 3;
 int numberCardsHigh = 2;
 
@@ -16,9 +16,9 @@ int currentX = 0;
 int currentY = 0;
 
 int cardHeight = (int)(cardWidth*1.0/2);
-int gridSize = 50;
-int rotShapeSize = (int) (1.2*shapeSize/sqrt(2));
-int strkWeight = 5;
+int gridSize = 18;
+int rotShapeSize = (int) (1.1*shapeSize/sqrt(2));
+int strkWeight = 2;
 int transparentFactor = 90;
 
 color RED = color(220,20,60);
@@ -29,25 +29,36 @@ int tempWidth = (numberCardsWide * cardWidth) + ((numberCardsWide + 1) * cardBor
 int tempHeight = (numberCardsHigh * cardHeight) + ((numberCardsHigh + 1) * cardBorder);
 
 void setup() {
-  size(560, 220);
-  //println(tempWidth);
-  //println(tempHeight);
+  size(196, 72);
+  println(tempWidth);
+  println(tempHeight);
   strokeCap(ROUND);
   rectMode(CENTER);
   background(0);
+  frameRate(30);
   
   buildCard("1,1,S,R,S");
-  buildCard("2,2,D,G,E");
-  buildCard("3,3,C,P,T");
+  buildCard("2,3,D,G,E");
+  buildCard("3,3,D,P,T");
   buildCard("4,1,S,P,T");
   buildCard("5,2,D,R,E");
   buildCard("6,3,C,G,S");
   
   // Saves each frame as line-000001.png, line-000002.png, etc.
-  saveFrame("line-######.png");
+  saveFrame("line-######.PNG");
 }
 
-void draw() { //<>// //<>//
+void draw() {
+  buildCard("1,1,S,R,S");
+  buildCard("2,3,D,G,E");
+  buildCard("3,3,D,P,T");
+  buildCard("4,1,S,P,T");
+  buildCard("5,2,D,R,E");
+  buildCard("6,3,C,G,S");
+  
+  // Saves each frame as line-000001.png, line-000002.png, etc.
+  saveFrame("line-######.PNG");
+  println(frameRate); //<>// //<>//
 }
 
 //-------------------------------------------------------------------------------------------------------
