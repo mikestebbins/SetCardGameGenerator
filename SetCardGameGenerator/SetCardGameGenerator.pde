@@ -89,6 +89,25 @@ void setup() {
   popMatrix();
   printPosition("after 4th card"); 
   
+  pushMatrix();
+  moveToCardCenter(5);
+  drawCardBackground();
+ 
+  pushMatrix();
+  moveToSymPos(1);
+  setFillColor("S",RED);
+  drawSquare();
+
+  moveToSymPos(2);
+  setFillColor("E",GREEN);
+  drawCircle();
+
+  moveToSymPos(3);
+  setFillColor("T",PURPLE);
+  drawDiamond();
+  
+  popMatrix();
+  popMatrix(); 
 }
 
 void draw() { //<>// //<>//
@@ -166,6 +185,45 @@ void drawCardBackground()  {
   rect(0, 0, cardWidth, cardHeight,10);
   popMatrix();  
 }
+
+void setFillColor (String fill, int colr)  {
+  if (fill == "S")  {  // Solid fill
+    noStroke();
+    fill(colr);
+  }
+  
+  if (fill == "E")  {  // Empty fill
+    strokeWeight(strkWeight);
+    stroke(colr);
+    fill(255);
+  }
+  
+  if (fill == "T")  {  // Transparent, or "Semi" fill
+    noStroke();
+    fill(colr,transparentFactor);
+  }
+}
+
+void drawSquare()  {
+  pushMatrix();
+  rect(0, 0, shapeSize, shapeSize);
+  popMatrix();  
+}
+
+void drawCircle()  {
+  pushMatrix();
+  ellipse(0, 0, shapeSize, shapeSize);
+  popMatrix();  
+}
+
+void drawDiamond()  {
+  pushMatrix();
+  rotate(PI/4.0);
+  rect(0, 0, rotShapeSize, rotShapeSize);
+  popMatrix();  
+}
+
+// DEPRECATED-------------------------------------------------------
 
 void drawSolidSquare(int colr)  {
   noStroke();
