@@ -46,13 +46,6 @@ void setup() {
   frameRate(30);
   input = loadStrings("inputfile.txt");
   numberOfHands = input.length;
-
-  //buildCard("1,1,S,R,S");
-  //buildCard("2,3,D,G,E");
-  //buildCard("3,3,D,P,T");
-  //buildCard("4,1,S,P,T");
-  //buildCard("5,2,D,R,E");
-  //buildCard("6,3,C,G,S");
 }
 
 // ----------------------------------------------------------------------------------------------------------
@@ -80,9 +73,18 @@ void draw() {
         buildCard(tempHandArray[j]);
     }
     
-  // Saves each frame as line-000001.png, line-000002.png, etc.
-  saveFrame("line-######.PNG");
-  //println(frameRate); //<>// //<>//
+    int tempIndex = (tempHandArray.length)-1;
+    int numberOfSets = int(tempHandArray[tempIndex]);
+    
+    println(numberOfSets);    
+    
+    if (numberOfSets > 0)  {
+          saveFrame("HAS_SET-######.PNG");
+    }
+    else  {
+          saveFrame("NO_SET-######.PNG");
+    }
+    //println(frameRate); //<>// //<>//
 }
 
 // ----------------------------------------------------------------------------------------------------------
