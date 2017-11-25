@@ -91,7 +91,7 @@ def handToString(input_hand,sets_in_hand):
     f.close
     
 t = time.time()
-hands = 10000
+hands = 100000
 hands_with_a_set = 0
 for i in range (0,hands):
     temp = dealHand()
@@ -102,7 +102,4 @@ for i in range (0,hands):
 elapsed_time = time.time() - t
 print("")
 print("Number of hands out of",hands,"that contain a set is =",hands_with_a_set)
-print("time to complete =",elapsed_time,"seconds")
-
-
-    
+print("time to complete =",elapsed_time,"seconds")    
