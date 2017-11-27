@@ -76,7 +76,7 @@ void draw() {
     int tempIndex = (tempHandArray.length)-1;
     int numberOfSets = int(tempHandArray[tempIndex]);
     
-    println(numberOfSets);    
+    println(i);    
     
     if (numberOfSets > 0)  {
           saveFrame("HAS_SET-######.PNG");
@@ -256,7 +256,7 @@ void drawCardBackground()  {
   noStroke();
   fill(255);
   pushMatrix();
-  rect(0, 0, cardWidth, cardHeight,10);
+  rect(0, 0, cardWidth, cardHeight,5);
   popMatrix();  
 }
 
