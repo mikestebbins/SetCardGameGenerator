@@ -76,7 +76,8 @@ void draw() {
     int tempIndex = (tempHandArray.length)-1;
     int numberOfSets = int(tempHandArray[tempIndex]);
     
-    println(numberOfSets);    
+    //println(numberOfSets);  
+    println(i); 
     
     if (numberOfSets > 0)  {
           saveFrame("HAS_SET-######.PNG");
