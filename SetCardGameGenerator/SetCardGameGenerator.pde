@@ -6,11 +6,27 @@ Purpose is to read in a text file of inidividual hands from the card game SET,
 build a picture of that hand, and then export an image file of that hand.
 */
 
+
+//// Good settings for 2 rows, 3 columns
+//int shapeSize = 14;
+//int cardWidth = 60;
+//int cardBorder = 4;
+//int numberCardsWide = 3;
+//int numberCardsHigh = 2;
+
+//// Good settings for 1 rows, 2 columns
+//int shapeSize = 14;
+//int cardWidth = 60;
+//int cardBorder = 4;
+//int numberCardsWide = 2;
+//int numberCardsHigh = 1;
+
+// Good settings for 1 rows, 1 columns
 int shapeSize = 14;
 int cardWidth = 60;
 int cardBorder = 4;
-int numberCardsWide = 3;
-int numberCardsHigh = 2;
+int numberCardsWide = 2;
+int numberCardsHigh = 1;
 
 int currentX = 0;
 int currentY = 0;
@@ -37,15 +53,19 @@ int numberOfHands = 0;
 // ----------------------------------------------------------------------------------------------------------
 
 void setup() {
-  size(196, 72);
+  //size(196, 72); // 3 cards wide by 2 cards high
+  //size(132, 40);   // 2 cards wide by 1 card high
+  size(68, 40);    // 1 cards wide by 1 card high
+
   //println(tempWidth);
   //println(tempHeight);
   strokeCap(ROUND);
   rectMode(CENTER);
   background(0);
   frameRate(30);
-  input = loadStrings("inputfile.txt");
+  input = loadStrings("inputfile_TEST.txt");
   numberOfHands = input.length;
+  smooth(3);
 }
 
 // ----------------------------------------------------------------------------------------------------------
